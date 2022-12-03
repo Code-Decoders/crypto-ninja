@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import blurBackgroung from '../../images/blur-background.jpeg'
 import FruitNinja from '../../images/FruitNinja.png'
 import './homepage.css'
@@ -10,6 +10,11 @@ import lightbackground from '../../images/light-background.png'
 import whitebackground from '../../images/whitebackground.png'
 import { BrowserView, MobileView } from 'react-device-detect'
 import { MouseParallaxChild, MouseParallaxContainer } from "react-parallax-mouse";
+import { Link } from 'react-router-dom'
+
+
+
+
 
 function Homepage() {
 
@@ -26,7 +31,7 @@ function Homepage() {
                 >
                     <img src={FruitNinja} className="logo"></img>
                 </MouseParallaxChild>
-                
+
                 <div className="mouse-container"></div>
             </MouseParallaxContainer>
             <BrowserView>
@@ -42,7 +47,9 @@ function Homepage() {
                             so unsheathe your sword and get ready for an addictive, action-packed gaming experience!
                         </div>
                         <div className="content-action-container">
-                            <div className="content-action-button">Play Now</div>
+                            <Link style={{ textDecoration: 'none' }} to="playground">
+                                <div className="content-action-button">Play Now</div>
+                            </Link>
                             <div className="content-action-button">Download</div>
                         </div>
                     </div>
@@ -61,7 +68,9 @@ function Homepage() {
                             so unsheathe your sword and get ready for an addictive, action-packed gaming experience!
                         </div>
                         <div className="content-action-container">
-                            <div className="content-action-button">Play Now</div>
+                            <Link to={'playground'}>
+                                <div className="content-action-button">Play Now</div>
+                            </Link>
                             <div className="content-action-button">Download</div>
                         </div>
                     </div>
