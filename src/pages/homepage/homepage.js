@@ -5,6 +5,7 @@ import './homepage.css'
 import pig from '../../images/pig.png'
 import preview1 from '../../images/preview1.png'
 import preview2 from '../../images/preview2.png'
+import preview3 from '../../images/preview3.png'
 import lightbackground from '../../images/light-background.png'
 import whitebackground from '../../images/whitebackground.png'
 import { BrowserView, MobileView } from 'react-device-detect'
@@ -88,6 +89,7 @@ function Homepage() {
                     <div className="slider-preview">
                         <img className="slider-image" src={preview1}></img>
                         <img className="slider-image" src={preview2}></img>
+                        <img className="slider-image" src={preview3}></img>
                     </div>
                 </div>
                 <div className="social-media-container ">
