@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import blurBackgroung from '../../images/blur-background.jpeg'
 import FruitNinja from '../../images/FruitNinja.png'
 import './homepage.css'
@@ -9,9 +9,90 @@ import lightbackground from '../../images/light-background.png'
 import whitebackground from '../../images/whitebackground.png'
 import { BrowserView, MobileView } from 'react-device-detect'
 import { MouseParallaxChild, MouseParallaxContainer } from "react-parallax-mouse";
+import { Link } from 'react-router-dom'
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+// import { ethers } from "ethers";
+// import BigNumber from "bignumber.js";
+
+
+
 
 function Homepage() {
 
+    async function handleConnectWallet() {
+
+        // Create a connector
+        const connector = new WalletConnect({
+            bridge: "https://bridge.walletconnect.org", // Required
+            qrcodeModal: QRCodeModal,
+        });
+
+        // Check if connection is already established
+        if (!connector.connected) {
+            // create new session
+            connector.createSession();
+        }
+
+        // Subscribe to connection events
+        connector.on("connect", (error, payload) => {
+            if (error) {
+                throw error;
+            }
+
+            // Get provided accounts and chainId
+            const { accounts, chainId } = payload.params[0];
+        });
+
+        connector.on("session_update", (error, payload) => {
+            if (error) {
+                throw error;
+            }
+
+            // Get updated accounts and chainId
+            const { accounts, chainId } = payload.params[0];
+        });
+
+        connector.on("disconnect", (error, payload) => {
+            if (error) {
+                throw error;
+            }
+
+            // Delete connector
+        });
+
+        const request = connector._formatRequest({
+            method: 'get_accounts',
+        });
+
+        connector
+            ._sendCallRequest(request)
+            .then(result => {
+                // Returns the accounts
+                console.log(result);
+            })
+            .catch(error => {
+                // Error returned when rejected
+                console.error(error);
+            });
+    }
+
+    useEffect(() => {
+        handleConnectWallet();
+    }, [])
+
+    // useEffect(() => {
+    //     async function get() {
+    //         const provider = new ethers.providers.Web3Provider(window.ethereum);
+    //         await provider.send("eth_requestAccounts", []);
+
+    //         const signer = provider.getSigner();
+    //         console.log(await signer.getAddress());
+    //         console.log(BigNumber((await signer.getBalance()).toString()).toNumber() / 10 ** 18);
+    //         const contract = new ethers.Contract("0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1", )
+    //     }
+    //     get();
+    // }, [])
     return (
         <div>
             <MouseParallaxContainer className="logo-container">
@@ -25,7 +106,7 @@ function Homepage() {
                 >
                     <img src={FruitNinja} className="logo"></img>
                 </MouseParallaxChild>
-                
+
                 <div className="mouse-container"></div>
             </MouseParallaxContainer>
             <BrowserView>
@@ -41,7 +122,9 @@ function Homepage() {
                             so unsheathe your sword and get ready for an addictive, action-packed gaming experience!
                         </div>
                         <div className="content-action-container">
-                            <div className="content-action-button">Play Now</div>
+                            <Link style={{ textDecoration: 'none' }} to="playground">
+                                <div className="content-action-button">Play Now</div>
+                            </Link>
                             <div className="content-action-button">Download</div>
                         </div>
                     </div>
@@ -60,7 +143,9 @@ function Homepage() {
                             so unsheathe your sword and get ready for an addictive, action-packed gaming experience!
                         </div>
                         <div className="content-action-container">
-                            <div className="content-action-button">Play Now</div>
+                            <Link to={'playground'}>
+                                <div className="content-action-button">Play Now</div>
+                            </Link>
                             <div className="content-action-button">Download</div>
                         </div>
                     </div>
