@@ -2,7 +2,7 @@
 import { Unity, useUnityContext } from 'react-unity-webgl';
 import React, { useEffect, useState } from 'react';
 import { DatabaseService } from '../../adaptors/firebase_adaptor';
-import { getSigner } from '../../adaptors/ethers_adaptor';
+import { finishGame, getSigner, getTESTBalance, startGame } from '../../adaptors/ethers_adaptor';
 
 
 function Playground() {
@@ -27,36 +27,32 @@ function Playground() {
     });
 
 
-
-
-
     const [history, setHistory] = useState(false);
 
     const [user, setUser] = useState('');
-
-
 
     const handleConnectWallet = async () => {
         const signer = await getSigner();
         const address = await signer.getAddress();
         setUser(address);
-
-        // TODO: Add Token Balance
+        const balance = await getTESTBalance();
         sendMessage("Main Camera", "setAddress", address);
         sendMessage("Main Camera", "setToken", "TEST");
-        sendMessage("Main Camera", "setCoins", "100");
+        sendMessage("Main Camera", "setCoins", (balance.toString()).toString());
     }
 
     const handleJoinRoom = async () => {
+        const signer = await getSigner();
+        const address = await signer.getAddress();
         console.log("Joining Room");
         const state = await DatabaseService.get()
-        // TODO: Join Room Logic Contract Code
+        await startGame();
         setTimeout(async () => {
             await DatabaseService.update({
                 data: state.user1Address === "" ? {
-                    "user1Address": user,
+                    "user1Address": address,
                 } : {
-                    "user2Address": user,
+                    "user2Address": address,
 
                 }
             })
@@ -86,11 +82,11 @@ function Playground() {
         if (!history) {
             setHistory(true);
             console.log("Ending Match", val);
-            // TODO: End Match Logic Contract Code
+            await finishGame();
             // await for 5 seconds
-            setTimeout(async () => {
+            // setTimeout(async () => {
                 sendMessage("Game Manager", "HandleCompleteButton");
-            }, 5000);
+            // }, 5000);
 
         }
     }
