@@ -38,7 +38,7 @@ function Playground() {
         const balance = await getTESTBalance();
         sendMessage("Main Camera", "setAddress", address);
         sendMessage("Main Camera", "setToken", "TEST");
-        sendMessage("Main Camera", "setCoins", (balance.toString()).toString());
+        sendMessage("Main Camera", "setCoins", (balance / 10 ** 18).toFixed(2));
     }
 
     const handleJoinRoom = async () => {
@@ -47,16 +47,14 @@ function Playground() {
         console.log("Joining Room");
         const state = await DatabaseService.get()
         await startGame();
-        setTimeout(async () => {
-            await DatabaseService.update({
-                data: state.user1Address === "" ? {
-                    "user1Address": address,
-                } : {
-                    "user2Address": address,
+        await DatabaseService.update({
+            data: state.user1Address === "" ? {
+                "user1Address": address,
+            } : {
+                "user2Address": address,
 
-                }
-            })
-        }, 5000);
+            }
+        })
         DatabaseService.subscribe((data) => {
 
             sendMessage("Main Camera", "UpdateRoom", JSON.stringify(data));
@@ -85,7 +83,7 @@ function Playground() {
             await finishGame();
             // await for 5 seconds
             // setTimeout(async () => {
-                sendMessage("Game Manager", "HandleCompleteButton");
+            sendMessage("Game Manager", "HandleCompleteButton");
             // }, 5000);
 
         }
