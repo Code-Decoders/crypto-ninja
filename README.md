@@ -30,9 +30,16 @@ Youtube Video Demo
 **Backend:** Solidity, Connext, Remix
 
 
-## B. Secure Flow
+## Roadmap
 
-![Untitled (10)](https://user-images.githubusercontent.com/21285859/192128579-eb2c8740-1c75-436f-8062-5e5e05defeb1.jpg)
+- [x]  Player To Earn
+- [x]  Multiple Owner Ownership
+- [ ]  Multiplayer Support like a open-world a arena
+- [ ]  OpensSea.io integration
+- [ ]  Security Enhancements/ Auditing in the Smart Contract
+- [ ]  More upgrades and abilities
+- [ ]  Improve gaming expereince
+- [ ]  Improve UI/UX for the Inventory
 
 ## Run Locally
 
