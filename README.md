@@ -6,7 +6,7 @@
 
 ## Inspiration
 
-> Crypto Ninja can be inspired by the timeless and addictive gameplay of Fruit Ninja, which is known for its fast-paced slicing action. By integrating the world of cryptocurrencies and bidding mechanics into the gameplay, you can create a unique and engaging experience that combines familiar mechanics with a fresh twist.
+> Crypto Ninja inspired by the timeless and addictive gameplay of Fruit Ninja, which is known for its fast-paced slicing action. By integrating the world of cryptocurrencies and bidding mechanics into the gameplay, you can create a unique and engaging experience that combines familiar mechanics with a fresh twist.
 
 ## Features
 
